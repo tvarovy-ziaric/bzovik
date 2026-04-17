@@ -399,4 +399,28 @@
   // Display the initial scene.
   switchScene(scenes[0]);
 
+var gyroInitialized = false;
+
+function enableGyroSafe() {
+  if (gyroInitialized) return;
+
+  setTimeout(function() {
+    try {
+      var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
+      controls.registerMethod('deviceOrientation', deviceOrientationControl);
+      controls.enableMethod('deviceOrientation');
+      gyroInitialized = true;
+      console.log("GYRO OK");
+    } catch (e) {
+      console.log("GYRO FAIL", e);
+    }
+  }, 300); // kritický delay
+}
+
+// 👉 aktivácia po prvom dotyku
+document.body.addEventListener('touchstart', function initOnce() {
+  enableGyroSafe();
+  document.body.removeEventListener('touchstart', initOnce);
+});
+
 })();
