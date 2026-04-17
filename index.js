@@ -70,6 +70,12 @@
   // Initialize viewer.
   var viewer = new Marzipano.Viewer(panoElement, viewerOpts);
 
+  // 👉 GYRO FIX
+  var controls = viewer.controls();
+  var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
+  controls.registerMethod('deviceOrientation', deviceOrientationControl);
+  controls.enableMethod('deviceOrientation');
+
   // Create scenes.
   var scenes = data.scenes.map(function(data) {
     var urlPrefix = "tiles";
