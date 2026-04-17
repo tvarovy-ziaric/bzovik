@@ -70,12 +70,6 @@
   // Initialize viewer.
   var viewer = new Marzipano.Viewer(panoElement, viewerOpts);
 
-  // 👉 GYRO FIX
-  var controls = viewer.controls();
-  var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
-  controls.registerMethod('deviceOrientation', deviceOrientationControl);
-  controls.enableMethod('deviceOrientation');
-
   // Create scenes.
   var scenes = data.scenes.map(function(data) {
     var urlPrefix = "tiles";
@@ -177,12 +171,18 @@
 
   // Associate view controls with elements.
   var controls = viewer.controls();
+
   controls.registerMethod('upElement',    new Marzipano.ElementPressControlMethod(viewUpElement,     'y', -velocity, friction), true);
   controls.registerMethod('downElement',  new Marzipano.ElementPressControlMethod(viewDownElement,   'y',  velocity, friction), true);
   controls.registerMethod('leftElement',  new Marzipano.ElementPressControlMethod(viewLeftElement,   'x', -velocity, friction), true);
   controls.registerMethod('rightElement', new Marzipano.ElementPressControlMethod(viewRightElement,  'x',  velocity, friction), true);
   controls.registerMethod('inElement',    new Marzipano.ElementPressControlMethod(viewInElement,  'zoom', -velocity, friction), true);
   controls.registerMethod('outElement',   new Marzipano.ElementPressControlMethod(viewOutElement, 'zoom',  velocity, friction), true);
+
+  // 👉 GYRO (správne miesto)
+  var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
+  controls.registerMethod('deviceOrientation', deviceOrientationControl);
+  controls.enableMethod('deviceOrientation');
 
   function sanitize(s) {
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
