@@ -179,11 +179,6 @@
   controls.registerMethod('inElement',    new Marzipano.ElementPressControlMethod(viewInElement,  'zoom', -velocity, friction), true);
   controls.registerMethod('outElement',   new Marzipano.ElementPressControlMethod(viewOutElement, 'zoom',  velocity, friction), true);
 
-  // 👉 GYRO (správne miesto)
-  var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
-  controls.registerMethod('deviceOrientation', deviceOrientationControl);
-  controls.enableMethod('deviceOrientation');
-
   function sanitize(s) {
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
   }
