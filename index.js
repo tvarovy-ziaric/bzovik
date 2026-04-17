@@ -392,6 +392,21 @@
     return null;
   }
 
+  // 👉 FORCE GYRO INIT (Android fix)
+  function enableGyro() {
+    var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
+    controls.registerMethod('deviceOrientation', deviceOrientationControl);
+    controls.enableMethod('deviceOrientation');
+
+    console.log("GYRO ENABLED");
+  }
+
+  // 👉 aktivácia po prvom dotyku
+  document.body.addEventListener('click', function initGyroOnce() {
+    enableGyro();
+    document.body.removeEventListener('click', initGyroOnce);
+  });
+
   // Display the initial scene.
   switchScene(scenes[0]);
 
