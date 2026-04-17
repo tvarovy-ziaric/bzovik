@@ -143,5 +143,17 @@
 <script src="data.js"></script>
 <script src="index.js"></script>
 
+<script>
+// 👉 gyro
+var controls = viewer.controls();
+var deviceOrientationControl = controls.registerMethod(
+  'deviceOrientation',
+  new Marzipano.DeviceOrientationControlMethod()
+);
+
+// aktivácia
+controls.enableMethod('deviceOrientation');
+</script>
+
 </body>
 </html>
