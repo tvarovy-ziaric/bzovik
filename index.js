@@ -192,6 +192,15 @@
     stopAutorotate();
     scene.view.setParameters(scene.data.initialViewParameters);
     scene.scene.switchTo();
+
+  // 👉 GYRO INIT
+    if (!window.gyroInitialized) {
+      var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
+      controls.registerMethod('deviceOrientation', deviceOrientationControl);
+      controls.enableMethod('deviceOrientation');
+      window.gyroInitialized = true;
+    }
+
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
@@ -391,21 +400,6 @@
     }
     return null;
   }
-
-  // 👉 FORCE GYRO INIT (Android fix)
-  function enableGyro() {
-    var deviceOrientationControl = new Marzipano.DeviceOrientationControlMethod();
-    controls.registerMethod('deviceOrientation', deviceOrientationControl);
-    controls.enableMethod('deviceOrientation');
-
-    console.log("GYRO ENABLED");
-  }
-
-  // 👉 aktivácia po prvom dotyku
-  document.body.addEventListener('click', function initGyroOnce() {
-    enableGyro();
-    document.body.removeEventListener('click', initGyroOnce);
-  });
 
   // Display the initial scene.
   switchScene(scenes[0]);
